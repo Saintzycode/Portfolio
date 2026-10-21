@@ -6,7 +6,12 @@ import App from '../src/App.vue'
 
 const html = await renderToString(createSSRApp(App))
 
-for (const expected of ['Projects', 'Badges &amp; Certifications', 'Contributions', 'contributions in the last year']) {
+for (const expected of [
+  '01 / Projects',
+  '02 / Badges',
+  '03 / Contributions',
+  'contributions in the last year',
+]) {
   if (!html.includes(expected)) throw new Error(`Missing "${expected}" in rendered output`)
 }
 

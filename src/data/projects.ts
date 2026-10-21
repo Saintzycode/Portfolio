@@ -10,6 +10,8 @@ export interface Project {
   stack: string[]
   links: ProjectLink[]
   featured: boolean
+  /** Base colour of the card's gradient panel. */
+  accent: string
 }
 
 // TODO: replace with your real projects.
@@ -24,6 +26,7 @@ export const projects: Project[] = [
       { label: 'Source', href: 'https://github.com/Saintzycode/project-one' },
     ],
     featured: true,
+    accent: '#6366f1',
   },
   {
     slug: 'project-two',
@@ -32,6 +35,7 @@ export const projects: Project[] = [
     stack: ['Python', 'Flask'],
     links: [{ label: 'Source', href: 'https://github.com/Saintzycode/project-two' }],
     featured: true,
+    accent: '#a855f7',
   },
   {
     slug: 'project-three',
@@ -40,5 +44,6 @@ export const projects: Project[] = [
     stack: ['Flutter', 'Dart'],
     links: [{ label: 'Source', href: 'https://github.com/Saintzycode/project-three' }],
     featured: false,
+    accent: '#d946ef',
   },
 ]
