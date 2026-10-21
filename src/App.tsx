@@ -16,7 +16,7 @@ export default function App() {
   return (
     <div className="relative overflow-x-hidden">
       {/* sonar field — the whole page sits on top of it */}
-      <SonarBackground baseOpacity={0.22} pingEvery={3} spacing={30} ringWidth={110} />
+      <SonarBackground baseOpacity={0.4} pingEvery={3} spacing={30} ringWidth={110} />
 
       <ScrollToTop />
 
