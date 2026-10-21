@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { profile } from '../data/profile'
 import { projects } from '../data/projects'
 import { badges } from '../data/badges'
@@ -14,6 +15,22 @@ const stats = [
 ]
 
 export default function HomeView() {
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        }
+      },
+      { threshold: 0.15 },
+    )
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <>
       {/* hero */}
