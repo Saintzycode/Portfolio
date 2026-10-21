@@ -1,13 +1,34 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import contributions from '../data/contributions.json'
 
 // GitHub's dark palette, straight from their legend.
 const LEVEL_COLORS = ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+const GAP = 3
+const MIN_CELL = 11
+const MAX_CELL = 22
 
 export default function ContributionsSection() {
   const weeks = contributions.weeks
   const total = contributions.totalContributions
+  const scroller = useRef<HTMLDivElement>(null)
+  const [cell, setCell] = useState(MIN_CELL)
+
+  // Scale the grid to the width of the panel so there is no dead space.
+  useEffect(() => {
+    const element = scroller.current
+    if (!element) return
+    const measure = () => {
+      const available = element.clientWidth
+      const columns = Math.max(weeks.length, 1)
+      setCell(Math.min(MAX_CELL, Math.max(MIN_CELL, (available - (columns - 1) * GAP) / columns)))
+    }
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [weeks.length])
+
   const activeDays = useMemo(
     () => weeks.flatMap((week) => week.days).filter((day) => day.count > 0).length,
     [weeks],
@@ -52,16 +73,17 @@ export default function ContributionsSection() {
         </p>
       </div>
 
-      <div className="mt-6 overflow-x-auto pb-2">
+      <div ref={scroller} className="mt-6 overflow-x-auto pb-2">
         {weeks.length > 0 ? (
           <div className="inline-block">
             <div className="mb-1 flex gap-2">
               <div className="w-[26px] shrink-0" />
-              <div className="flex gap-[3px]">
+              <div className="flex" style={{ gap: GAP }}>
                 {monthLabels.map((label, index) => (
                   <span
                     key={index}
-                    className="w-[11px] overflow-visible text-[10px] whitespace-nowrap text-violet-300/60"
+                    className="overflow-visible text-[10px] whitespace-nowrap text-violet-300/60"
+                    style={{ width: cell }}
                   >
                     {label}
                   </span>
@@ -70,28 +92,33 @@ export default function ContributionsSection() {
             </div>
 
             <div className="flex gap-2">
-              <div className="flex shrink-0 flex-col gap-[3px]">
+              <div className="flex shrink-0 flex-col" style={{ gap: GAP }}>
                 {['', 'Mon', '', 'Wed', '', 'Fri', ''].map((label, index) => (
                   <span
                     key={index}
-                    className="h-[11px] w-[26px] overflow-visible text-[9px] leading-[11px] whitespace-nowrap text-zinc-600"
+                    className="w-[26px] overflow-visible text-[9px] whitespace-nowrap text-zinc-600"
+                    style={{ height: cell, lineHeight: `${cell}px` }}
                   >
                     {label}
                   </span>
                 ))}
               </div>
 
-              <div className="flex gap-[3px]">
+              <div className="flex" style={{ gap: GAP }}>
                 {weeks.map((week, weekIndex) => (
-                  <div key={weekIndex} className="flex flex-col gap-[3px]">
+                  <div key={weekIndex} className="flex flex-col" style={{ gap: GAP }}>
                     {week.days.map((day) => (
                       <span
                         key={day.date}
                         title={tooltip(day.date, day.count)}
                         aria-label={tooltip(day.date, day.count)}
                         role="img"
-                        className="h-[11px] w-[11px] rounded-[2px] transition hover:ring-1 hover:ring-white/70"
-                        style={{ backgroundColor: LEVEL_COLORS[day.level] }}
+                        className="rounded-[2px] transition hover:ring-1 hover:ring-white/70"
+                        style={{
+                          width: cell,
+                          height: cell,
+                          backgroundColor: LEVEL_COLORS[day.level],
+                        }}
                       />
                     ))}
                   </div>
