@@ -20,9 +20,21 @@ npm run build      # typecheck + production build to dist/
 | What | Where |
 | --- | --- |
 | Name, role, links | `src/data/profile.ts` |
-| Projects | `src/data/projects.ts` |
+| Projects (list + case study copy) | `src/data/projects.ts` |
 | Badges / certifications | `src/data/badges.ts` + images in `public/badges/` |
 | Contribution data | `src/data/contributions.json` (generated) |
+
+## Routes
+
+| Route | Page |
+| --- | --- |
+| `/` | Hero, projects, badges, contributions |
+| `/projects/:slug` | Project case study (`src/views/ProjectDetail.tsx`) |
+| anything else | 404 page |
+
+Deep links need a server rewrite. On GitHub Pages the build emits a `404.html`
+that bounces to the app and restores the URL — on Vercel/Netlify add a rewrite
+to `index.html` instead.
 
 ## shadcn
 

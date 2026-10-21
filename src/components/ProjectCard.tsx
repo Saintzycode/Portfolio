@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import type { Project } from '../data/projects'
 
 export default function ProjectCard({ project }: { project: Project }) {
@@ -28,7 +29,11 @@ export default function ProjectCard({ project }: { project: Project }) {
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <h3 className="font-display text-lg font-semibold text-white">{project.title}</h3>
+        <h3 className="font-display text-lg font-semibold text-white">
+          <Link to={`/projects/${project.slug}`} className="hover:text-violet-300">
+            {project.title}
+          </Link>
+        </h3>
         <p className="text-sm leading-relaxed text-zinc-400">{project.summary}</p>
 
         <ul className="flex flex-wrap gap-1.5">
@@ -43,6 +48,12 @@ export default function ProjectCard({ project }: { project: Project }) {
         </ul>
 
         <div className="mt-auto flex flex-wrap gap-4 pt-1">
+          <Link
+            to={`/projects/${project.slug}`}
+            className="cursor-pointer text-sm font-medium text-violet-300 transition hover:text-white hover:underline"
+          >
+            Case study →
+          </Link>
           {project.links.map((link) => (
             <a
               key={link.href}

@@ -2,10 +2,13 @@
 // the browser. Run with: npm run smoke
 import { createElement } from 'react'
 import { renderToString } from 'react-dom/server'
+import { MemoryRouter } from 'react-router-dom'
 import App from '../src/App'
 
-const html = renderToString(createElement(App))
+const render = (path) =>
+  renderToString(createElement(MemoryRouter, { initialEntries: [path] }, createElement(App)))
 
+const home = render('/')
 for (const expected of [
   'Things I&#x27;ve built',
   'Certifications earned',
@@ -13,10 +16,19 @@ for (const expected of [
   'contributions in the last year',
   'data-slot="sonar-grid"',
 ]) {
-  if (!html.includes(expected)) {
-    console.error(html.slice(0, 500))
+  if (!home.includes(expected)) {
+    console.error(home.slice(0, 500))
     throw new Error(`Missing "${expected}" in rendered output`)
   }
 }
 
-console.log(`Smoke OK — rendered ${html.length} characters`)
+const detail = render('/projects/project-one')
+for (const expected of ['Project One', 'Highlights', 'All projects', 'Previous', 'Next']) {
+  if (!detail.includes(expected)) throw new Error(`Missing "${expected}" on the project page`)
+}
+
+if (render('/projects/does-not-exist').includes('Project One')) {
+  throw new Error('Unknown project slug should not render a project')
+}
+
+console.log(`Smoke OK — home ${home.length} chars, detail ${detail.length} chars`)
