@@ -3,7 +3,7 @@ import { profile } from './data/profile'
 import { projects } from './data/projects'
 import { badges } from './data/badges'
 import contributions from './data/contributions.json'
-import { SonarGrid } from './components/ui/sonar-grid'
+import SonarBackground from './components/SonarBackground'
 import SectionHeading from './components/SectionHeading'
 import BadgesSection from './components/BadgesSection'
 import ContributionsSection from './components/ContributionsSection'
@@ -40,6 +40,9 @@ export default function App() {
 
   return (
     <div className="relative overflow-x-hidden">
+      {/* sonar field — the whole page sits on top of it */}
+      <SonarBackground baseOpacity={0.22} pingEvery={3} spacing={30} ringWidth={110} />
+
       {/* gradient orbs */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
         <div className="absolute -top-48 -left-40 h-[38rem] w-[38rem] rounded-full bg-indigo-600/40 blur-[130px] animate-[drift_22s_ease-in-out_infinite]" />
@@ -75,14 +78,8 @@ export default function App() {
       </header>
 
       <main id="top">
-        {/* hero — the sonar field is the section itself, so taps anywhere ping it */}
-        <SonarGrid
-          className="flex min-h-screen w-full flex-col items-center justify-center py-28 text-center"
-          baseOpacity={0.22}
-          pingEvery={3}
-          spacing={30}
-          ringWidth={110}
-        >
+        {/* hero */}
+        <section className="flex min-h-screen flex-col items-center justify-center py-28 text-center">
           <div className="mx-auto flex w-full max-w-6xl flex-col items-center px-6">
             <p className="text-xs font-semibold tracking-[0.35em] text-violet-300/80 uppercase sm:text-sm">
               {profile.role}
@@ -123,7 +120,7 @@ export default function App() {
 
             <p className="mt-16 text-xs tracking-[0.3em] text-zinc-600 uppercase">Scroll</p>
           </div>
-        </SonarGrid>
+        </section>
 
         <div className="mx-auto max-w-6xl px-6">
           {/* projects */}
