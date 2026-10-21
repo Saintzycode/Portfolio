@@ -64,6 +64,7 @@ async function viaGraphql() {
     },
     body: JSON.stringify({ query: GRAPHQL, variables: { login } }),
   })
+  if (!res.ok) throw new Error(`GraphQL returned ${res.status}`)
   const json = await res.json()
   if (json.errors) throw new Error(json.errors.map((e) => e.message).join('; '))
   const cal = json.data.user.contributionsCollection.contributionCalendar
@@ -78,21 +79,33 @@ async function viaGraphql() {
 }
 
 async function viaPage() {
-  const html = await (
-    await fetch(`https://github.com/users/${login}/contributions`, {
-      headers: { 'user-agent': 'Mozilla/5.0' },
-    })
-  ).text()
-  return parseContributionsPage(html)
+  const res = await fetch(`https://github.com/users/${login}/contributions`, {
+    headers: { 'user-agent': 'Mozilla/5.0' },
+  })
+  if (!res.ok) throw new Error(`GitHub returned ${res.status}`)
+  return parseContributionsPage(await res.text())
+}
+
+export function assertUsable({ weeks }) {
+  if (weeks.length < 50 || !weeks.some((week) => week.days.length > 0)) {
+    throw new Error(`unusable contribution data (${weeks.length} weeks)`)
+  }
 }
 
 async function main() {
-  const data = process.env.GITHUB_TOKEN
-    ? await viaGraphql().catch((err) => {
-        console.warn(`GraphQL failed (${err.message}); falling back to the public page.`)
-        return viaPage()
-      })
-    : await viaPage()
+  let data
+  try {
+    data = process.env.GITHUB_TOKEN
+      ? await viaGraphql().catch((err) => {
+          console.warn(`GraphQL failed (${err.message}); falling back to the public page.`)
+          return viaPage()
+        })
+      : await viaPage()
+    assertUsable(data)
+  } catch (err) {
+    console.warn(`Contribution refresh failed (${err.message}); keeping the committed JSON.`)
+    return
+  }
 
   const payload = { login, generatedAt: new Date().toISOString(), ...data }
   await mkdir(dirname(out), { recursive: true })

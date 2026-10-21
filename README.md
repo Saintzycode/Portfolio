@@ -55,15 +55,20 @@ theme, so it stays violet without hard-coding a colour.
 
 `npm run contrib` writes `src/data/contributions.json`:
 
-- With `GITHUB_TOKEN` set (see `.env.example`) it uses the GraphQL API.
+- With `GITHUB_TOKEN` set (see `.env.example`) it uses the GraphQL API, which
+  also counts private contributions when the token belongs to that account.
 - Without a token it reads the public contributions page — levels and per-day
   counts, which is all the graph needs.
 
-The JSON is committed so the site builds even when GitHub is unreachable.
+If the refresh fails or returns an unusable calendar, the committed JSON is kept
+and the build continues.
 
 ## Deploy
 
-GitHub Pages via `.github/workflows/deploy.yml`: it refreshes the contributions
-and builds on every push to `main`. Add `GITHUB_TOKEN` and `GITHUB_USERNAME` as
-repository secrets and set `BASE_PATH=/<repo-name>/` in the workflow for a
-project site (user/organisation sites need no base path).
+GitHub Pages via `.github/workflows/deploy.yml`: it runs the tests, refreshes the
+contributions and builds on every push to `main`. Add `GITHUB_USERNAME` as a
+repository secret and, to count private contributions in CI, `CONTRIB_TOKEN` (a
+PAT for the account). Set the `BASE_PATH` **repository variable**
+(Settings → Secrets and variables → Actions → Variables) to `/<repo-name>/` for a
+project site (user/organisation sites need no base path). Without
+`CONTRIB_TOKEN` the CI counts public contributions only.

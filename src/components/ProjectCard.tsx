@@ -18,9 +18,13 @@ export default function ProjectCard({ project }: { project: Project }) {
             backgroundSize: '28px 28px',
           }}
         />
-        <span className="absolute bottom-2 left-4 font-display text-7xl font-bold text-white/15 select-none">
-          {project.title[0]}
-        </span>
+        {project.image ? (
+          <img src={project.image} alt="" className="absolute inset-0 size-full object-cover" />
+        ) : (
+          <span className="absolute bottom-2 left-4 font-display text-7xl font-bold text-white/15 select-none">
+            {project.title[0]}
+          </span>
+        )}
         {project.featured && (
           <span className="absolute top-3 right-3 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-xs font-medium text-white backdrop-blur">
             Featured
@@ -30,7 +34,10 @@ export default function ProjectCard({ project }: { project: Project }) {
 
       <div className="flex flex-1 flex-col gap-3 p-5">
         <h3 className="font-display text-lg font-semibold text-white">
-          <Link to={`/projects/${project.slug}`} className="hover:text-violet-300">
+          <Link
+            to={`/projects/${project.slug}`}
+            className="after:absolute after:inset-0 after:content-[''] hover:text-violet-300"
+          >
             {project.title}
           </Link>
         </h3>
@@ -48,19 +55,13 @@ export default function ProjectCard({ project }: { project: Project }) {
         </ul>
 
         <div className="mt-auto flex flex-wrap gap-4 pt-1">
-          <Link
-            to={`/projects/${project.slug}`}
-            className="cursor-pointer text-sm font-medium text-violet-300 transition hover:text-white hover:underline"
-          >
-            Case study →
-          </Link>
           {project.links.map((link) => (
             <a
               key={link.href}
               href={link.href}
               target="_blank"
               rel="noreferrer"
-              className="cursor-pointer text-sm font-medium text-violet-300 transition hover:text-white hover:underline"
+              className="relative z-10 cursor-pointer text-sm font-medium text-violet-300 transition hover:text-white hover:underline"
             >
               {link.label} →
             </a>

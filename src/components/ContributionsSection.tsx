@@ -1,33 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo } from 'react'
 import contributions from '../data/contributions.json'
 
 // GitHub's dark palette, straight from their legend.
 const LEVEL_COLORS = ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353']
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-const GAP = 3
-const MIN_CELL = 11
-const MAX_CELL = 22
 
 export default function ContributionsSection() {
   const weeks = contributions.weeks
   const total = contributions.totalContributions
-  const scroller = useRef<HTMLDivElement>(null)
-  const [cell, setCell] = useState(MIN_CELL)
-
-  // Scale the grid to the width of the panel so there is no dead space.
-  useEffect(() => {
-    const element = scroller.current
-    if (!element) return
-    const measure = () => {
-      const available = element.clientWidth
-      const columns = Math.max(weeks.length, 1)
-      setCell(Math.min(MAX_CELL, Math.max(MIN_CELL, (available - (columns - 1) * GAP) / columns)))
-    }
-    measure()
-    const observer = new ResizeObserver(measure)
-    observer.observe(element)
-    return () => observer.disconnect()
-  }, [weeks.length])
 
   const activeDays = useMemo(
     () => weeks.flatMap((week) => week.days).filter((day) => day.count > 0).length,
@@ -73,17 +53,16 @@ export default function ContributionsSection() {
         </p>
       </div>
 
-      <div ref={scroller} className="mt-6 overflow-x-auto pb-2">
+      <div className="mt-6 overflow-x-auto pb-2">
         {weeks.length > 0 ? (
-          <div className="inline-block">
+          <div>
             <div className="mb-1 flex gap-2">
               <div className="w-[26px] shrink-0" />
-              <div className="flex" style={{ gap: GAP }}>
+              <div className="flex min-w-0 flex-1 gap-[3px]">
                 {monthLabels.map((label, index) => (
                   <span
                     key={index}
-                    className="overflow-visible text-[10px] whitespace-nowrap text-violet-300/60"
-                    style={{ width: cell }}
+                    className="min-w-[11px] max-w-[22px] flex-1 overflow-visible text-[10px] whitespace-nowrap text-violet-300/60"
                   >
                     {label}
                   </span>
@@ -92,33 +71,31 @@ export default function ContributionsSection() {
             </div>
 
             <div className="flex gap-2">
-              <div className="flex shrink-0 flex-col" style={{ gap: GAP }}>
+              <div className="flex w-[26px] shrink-0 flex-col gap-[3px]">
                 {['', 'Mon', '', 'Wed', '', 'Fri', ''].map((label, index) => (
                   <span
                     key={index}
-                    className="w-[26px] overflow-visible text-[9px] whitespace-nowrap text-zinc-600"
-                    style={{ height: cell, lineHeight: `${cell}px` }}
+                    className="flex flex-1 items-center overflow-visible text-[9px] leading-none whitespace-nowrap text-zinc-600"
                   >
                     {label}
                   </span>
                 ))}
               </div>
 
-              <div className="flex" style={{ gap: GAP }}>
+              <div className="flex min-w-0 flex-1 gap-[3px]">
                 {weeks.map((week, weekIndex) => (
-                  <div key={weekIndex} className="flex flex-col" style={{ gap: GAP }}>
+                  <div
+                    key={weekIndex}
+                    className="flex min-w-[11px] max-w-[22px] flex-1 flex-col gap-[3px]"
+                  >
                     {week.days.map((day) => (
                       <span
                         key={day.date}
                         title={tooltip(day.date, day.count)}
                         aria-label={tooltip(day.date, day.count)}
                         role="img"
-                        className="rounded-[2px] transition hover:ring-1 hover:ring-white/70"
-                        style={{
-                          width: cell,
-                          height: cell,
-                          backgroundColor: LEVEL_COLORS[day.level],
-                        }}
+                        className="aspect-square w-full rounded-[2px] transition hover:ring-1 hover:ring-white/70"
+                        style={{ backgroundColor: LEVEL_COLORS[day.level] }}
                       />
                     ))}
                   </div>

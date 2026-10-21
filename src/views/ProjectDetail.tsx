@@ -58,8 +58,8 @@ export default function ProjectDetail() {
       </div>
 
       <div className="mt-10 space-y-5">
-        {project.description.map((paragraph) => (
-          <p key={paragraph.slice(0, 24)} className="leading-relaxed text-zinc-300">
+        {project.description.map((paragraph, i) => (
+          <p key={i} className="leading-relaxed text-zinc-300">
             {paragraph}
           </p>
         ))}

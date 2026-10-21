@@ -88,7 +88,7 @@ export const getProject = (slug: string) => projects.find((project) => project.s
 
 export const neighbours = (slug: string) => {
   const index = projects.findIndex((project) => project.slug === slug)
-  if (index === -1) return { previous: undefined, next: undefined }
+  if (index === -1 || projects.length < 2) return { previous: undefined, next: undefined }
   return {
     previous: projects[(index - 1 + projects.length) % projects.length],
     next: projects[(index + 1) % projects.length],

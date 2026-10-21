@@ -14,16 +14,18 @@ export interface SiteProfile {
 }
 
 // TODO: replace with your real details.
+const email = 'you@example.com'
+
 export const profile: SiteProfile = {
   name: 'John Kenneth',
   role: 'Developer & Network Engineer',
   tagline: 'I build web apps and automate the networks that run them.',
   location: 'Philippines',
-  email: 'you@example.com',
+  email,
   github: 'https://github.com/Saintzycode',
   socials: [
     { label: 'GitHub', href: 'https://github.com/Saintzycode' },
     { label: 'LinkedIn', href: 'https://linkedin.com/in/your-handle' },
-    { label: 'Email', href: 'mailto:you@example.com' },
+    { label: 'Email', href: `mailto:${email}` },
   ],
 }

@@ -58,7 +58,7 @@ export default function App() {
       <footer className="border-t border-white/10">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-6 py-10 text-sm text-zinc-500">
           <span>
-            © {new Date().getFullYear()} {profile.name}
+            © {new Date().getFullYear()} {profile.name} · {profile.location}
           </span>
           <span>React · TypeScript · Tailwind CSS</span>
         </div>

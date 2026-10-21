@@ -11,6 +11,7 @@ export default function SonarBackground(props: Omit<SonarGridProps, 'ref'>) {
 
   useEffect(() => {
     const forward = (event: PointerEvent) => {
+      if (!event.isTrusted) return
       hostRef.current?.dispatchEvent(
         new PointerEvent('pointerdown', {
           clientX: event.clientX,
