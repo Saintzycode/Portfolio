@@ -1,7 +1,7 @@
 # Portfolio
 
-Vue 3 + TypeScript + Tailwind CSS portfolio with a projects grid, certification
-badges and a GitHub-style contribution graph.
+React 19 + TypeScript + Tailwind CSS v4 (shadcn) portfolio with a projects grid,
+certification badges and a GitHub-style contribution graph.
 
 ## Commands
 
@@ -9,7 +9,7 @@ badges and a GitHub-style contribution graph.
 npm install
 npm run dev        # dev server
 npm run contrib    # refresh src/data/contributions.json from GitHub
-npm run typecheck  # vue-tsc
+npm run typecheck  # tsc -b
 npm run test       # contribution parser tests
 npm run smoke      # renders the app to HTML to catch runtime errors
 npm run build      # typecheck + production build to dist/
@@ -23,6 +23,21 @@ npm run build      # typecheck + production build to dist/
 | Projects | `src/data/projects.ts` |
 | Badges / certifications | `src/data/badges.ts` + images in `public/badges/` |
 | Contribution data | `src/data/contributions.json` (generated) |
+
+## shadcn
+
+`components.json` is the shadcn config (aliases `@/components`, `@/components/ui`,
+`@/lib`, `@/lib/utils`). Theme tokens live in `src/style.css` — the site is
+dark-only, so `:root` holds the violet palette and every added shadcn component
+inherits it.
+
+```bash
+npx shadcn@latest add button   # or any other component
+```
+
+`src/components/ui/sonar-grid.tsx` is the interactive hero field (canvas dot
+grid that answers taps with expanding rings). It reads `--primary` from the
+theme, so it stays violet without hard-coding a colour.
 
 ## Contributions
 
