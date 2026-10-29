@@ -1,6 +1,6 @@
 import { Link, Route, Routes } from 'react-router-dom'
 import { profile } from './data/profile'
-import SonarBackground from './components/SonarBackground'
+import { BackgroundPixelStars } from './components/ui/background-pixel-stars'
 import ScrollToTop from './components/ScrollToTop'
 import HomeView from './views/HomeView'
 import ProjectDetail from './views/ProjectDetail'
@@ -15,8 +15,10 @@ const nav = [
 export default function App() {
   return (
     <div className="relative overflow-x-hidden">
-      {/* sonar field — the whole page sits on top of it */}
-      <SonarBackground baseOpacity={0.4} pingEvery={3} spacing={30} ringWidth={110} />
+      {/* pixel starfield — the whole page sits on top of it */}
+      <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10">
+        <BackgroundPixelStars />
+      </div>
 
       <ScrollToTop />
 

@@ -101,7 +101,7 @@ export default function HomeView() {
         {/* badges */}
         <section id="badges" className="scroll-mt-28 py-20">
           <div className="reveal">
-            <SectionHeading index="02" label="Badges" title="Certifications earned" />
+            <SectionHeading index="02" label="Badges" title="Certifications and badges" />
             <BadgesSection />
           </div>
         </section>

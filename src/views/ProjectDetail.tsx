@@ -65,6 +65,19 @@ export default function ProjectDetail() {
         ))}
       </div>
 
+      {project.gallery && project.gallery.length > 0 && (
+        <div className="mt-10 space-y-6">
+          {project.gallery.map((src) => (
+            <img
+              key={src}
+              src={src}
+              alt={`${project.title} screenshot`}
+              className="w-full rounded-2xl border border-white/10"
+            />
+          ))}
+        </div>
+      )}
+
       {project.highlights.length > 0 && (
         <section className="mt-12">
           <h2 className="font-display text-lg font-semibold text-white">Highlights</h2>

@@ -25,7 +25,7 @@ export const profile: SiteProfile = {
   github: 'https://github.com/Saintzycode',
   socials: [
     { label: 'GitHub', href: 'https://github.com/Saintzycode' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/in/your-handle' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/john-kenneth-reside-3955a5271/' },
     { label: 'Email', href: `mailto:${email}` },
   ],
 }
