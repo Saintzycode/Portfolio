@@ -3,6 +3,9 @@ name: Deploy
 on:
   push:
     branches: [main]
+  # Rebuild daily so the contribution graph stays current without a push.
+  schedule:
+    - cron: '17 3 * * *'
   workflow_dispatch:
 
 permissions:
