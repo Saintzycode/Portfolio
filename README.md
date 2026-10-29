@@ -66,9 +66,10 @@ and the build continues.
 ## Deploy
 
 GitHub Pages via `.github/workflows/deploy.yml`: it runs the tests, refreshes the
-contributions and builds on every push to `main`. Add `GITHUB_USERNAME` as a
-repository secret and, to count private contributions in CI, `CONTRIB_TOKEN` (a
-PAT for the account). Set the `BASE_PATH` **repository variable**
-(Settings → Secrets and variables → Actions → Variables) to `/<repo-name>/` for a
-project site (user/organisation sites need no base path). Without
-`CONTRIB_TOKEN` the CI counts public contributions only.
+contributions and builds on every push to `main` (and once a day). The workflow
+asks `actions/configure-pages` for the site's base path, so there is no
+`BASE_PATH` variable to set. In Settings → Pages, keep **Source = GitHub Actions**
+(a branch deploy would serve the unbundled `index.html` and show a blank page).
+Add `GITHUB_USERNAME` as a repository secret and, to count private contributions
+in CI, `CONTRIB_TOKEN` (a PAT for the account). Without `CONTRIB_TOKEN` the CI
+counts public contributions only.

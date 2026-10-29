@@ -3,7 +3,8 @@ import react from '@vitejs/plugin-react'
 import { defineConfig, type Plugin } from 'vite'
 import { fileURLToPath } from 'node:url'
 
-const base = process.env.BASE_PATH || '/'
+// BASE_PATH can arrive as "/Portfolio", "/Portfolio/" or "" — one trailing slash.
+const base = `${(process.env.BASE_PATH || '/').replace(/\/+$/, '')}/`
 
 /**
  * GitHub Pages has no SPA rewrite, so a deep link like /projects/foo would 404

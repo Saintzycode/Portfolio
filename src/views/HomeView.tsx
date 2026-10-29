@@ -8,6 +8,7 @@ import BadgesSection from '../components/BadgesSection'
 import ContributionsSection from '../components/ContributionsSection'
 import ProjectCard from '../components/ProjectCard'
 import LanyardStage from '../components/lanyard/LanyardStage'
+import { asset } from '../lib/asset'
 
 const stats = [
   { value: projects.length, label: 'projects' },
@@ -80,7 +81,7 @@ export default function HomeView() {
           </div>
 
           <div className="h-[400px] w-full max-w-md justify-self-center sm:h-[480px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-1/2 lg:max-w-none">
-            <LanyardStage frontImage="/card-front.jpg" size={0.5} breeze={0} />
+            <LanyardStage frontImage={asset('/card-front.jpg')} size={0.5} breeze={0} />
           </div>
         </div>
       </section>

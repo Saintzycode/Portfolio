@@ -15,7 +15,7 @@ for (const expected of [
   'Activity on GitHub',
   'contributions in the last year',
   'fixed inset-0 -z-10',
-  '/badges/opswat-icip-badge.png',
+  `${import.meta.env.BASE_URL}badges/opswat-icip-badge.png`,
 ]) {
   if (!home.includes(expected)) {
     console.error(home.slice(0, 500))

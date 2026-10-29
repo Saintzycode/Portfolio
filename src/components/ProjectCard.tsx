@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Project } from '../data/projects'
+import { asset } from '../lib/asset'
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
@@ -19,7 +20,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           }}
         />
         {project.image ? (
-          <img src={project.image} alt="" className="absolute inset-0 size-full object-cover" />
+          <img src={asset(project.image)} alt="" className="absolute inset-0 size-full object-cover" />
         ) : (
           <span className="absolute bottom-2 left-4 font-display text-7xl font-bold text-white/15 select-none">
             {project.title[0]}

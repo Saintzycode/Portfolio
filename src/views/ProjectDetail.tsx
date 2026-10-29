@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 import { getProject, neighbours } from '../data/projects'
+import { asset } from '../lib/asset'
 import NotFound from './NotFound'
 
 export default function ProjectDetail() {
@@ -49,7 +50,7 @@ export default function ProjectDetail() {
         }}
       >
         {project.image ? (
-          <img src={project.image} alt={project.title} className="size-full object-cover" />
+          <img src={asset(project.image)} alt={project.title} className="size-full object-cover" />
         ) : (
           <span className="absolute bottom-4 left-6 font-display text-8xl font-bold text-white/15 select-none">
             {project.title[0]}
@@ -70,7 +71,7 @@ export default function ProjectDetail() {
           {project.gallery.map((src) => (
             <img
               key={src}
-              src={src}
+              src={asset(src)}
               alt={`${project.title} screenshot`}
               className="w-full rounded-2xl border border-white/10"
             />

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { X } from 'lucide-react'
 import { badges, type Badge } from '../data/badges'
+import { asset } from '../lib/asset'
 
 const initials = (title: string) =>
   title
@@ -38,7 +39,7 @@ export default function BadgesSection() {
                   </span>
                 ) : (
                   <img
-                    src={badge.image}
+                    src={asset(badge.image)}
                     alt=""
                     className="relative h-full w-full object-contain"
                     onError={() => setBroken((prev) => ({ ...prev, [badge.id]: true }))}
@@ -89,7 +90,7 @@ export default function BadgesSection() {
               </button>
             </div>
             <img
-              src={active.certificate ?? active.image}
+              src={asset(active.certificate ?? active.image)}
               alt={active.title}
               className="max-h-[78vh] w-full bg-white object-contain"
             />
