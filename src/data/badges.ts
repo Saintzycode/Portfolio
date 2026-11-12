@@ -35,14 +35,6 @@ export const badges: Badge[] = [
     image: '/badges/ccna-introduction-to-networks.png',
   },
   {
-    id: 'python',
-    title: 'Python Essentials',
-    issuer: 'Cisco Skills for All',
-    issued: '2025',
-    image: '/badges/python-essentials.png',
-    href: 'https://skillsforall.com/',
-  },
-  {
     id: 'opswat-icip',
     title: 'Introduction to Critical Infrastructure Protection',
     issuer: 'OPSWAT Academy',
