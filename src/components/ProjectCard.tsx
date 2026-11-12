@@ -1,10 +1,24 @@
+import type { CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import type { Project } from '../data/projects'
 import { asset } from '../lib/asset'
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({ project, index = 0 }: { project: Project; index?: number }) {
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-violet-400/40 hover:shadow-[0_24px_60px_-24px_rgba(168,85,247,0.55)]">
+    <article
+      onPointerMove={(event) => {
+        const rect = event.currentTarget.getBoundingClientRect()
+        event.currentTarget.style.setProperty('--mx', `${event.clientX - rect.left}px`)
+        event.currentTarget.style.setProperty('--my', `${event.clientY - rect.top}px`)
+      }}
+      className="reveal-item spotlight group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-violet-400/40 hover:shadow-[0_24px_60px_-24px_rgba(168,85,247,0.55)]"
+      style={
+        {
+          animationDelay: `${index * 90}ms`,
+          '--glow': `${project.accent}30`,
+        } as CSSProperties
+      }
+    >
       <div
         className="relative h-40 overflow-hidden"
         style={{

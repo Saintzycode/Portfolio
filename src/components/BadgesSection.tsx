@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import type { CSSProperties, PointerEvent } from 'react'
 import { X } from 'lucide-react'
 import { badges, type Badge } from '../data/badges'
 import { asset } from '../lib/asset'
@@ -24,12 +25,18 @@ export default function BadgesSection() {
   return (
     <>
       <ul className="grid gap-6 sm:grid-cols-2">
-        {badges.map((badge) => (
-          <li key={badge.id}>
+        {badges.map((badge, index) => (
+          <li key={badge.id} className="reveal-item" style={{ animationDelay: `${index * 60}ms` }}>
             <button
               type="button"
               onClick={() => setActive(badge)}
-              className="group flex h-full w-full items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-left backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-amber-300/40 hover:shadow-[0_24px_60px_-24px_rgba(251,191,36,0.45)]"
+              onPointerMove={(event: PointerEvent<HTMLButtonElement>) => {
+                const rect = event.currentTarget.getBoundingClientRect()
+                event.currentTarget.style.setProperty('--mx', `${event.clientX - rect.left}px`)
+                event.currentTarget.style.setProperty('--my', `${event.clientY - rect.top}px`)
+              }}
+              className="spotlight group flex h-full w-full items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.04] p-6 text-left backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-amber-300/40 hover:shadow-[0_24px_60px_-24px_rgba(251,191,36,0.45)]"
+              style={{ '--glow': '#fbbf2433' } as CSSProperties}
             >
               <span className="relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-white/15 to-white/[0.02] p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
                 <span className="absolute inset-0 rounded-2xl bg-amber-300/10 opacity-0 blur-md transition group-hover:opacity-100" />

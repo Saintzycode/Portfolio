@@ -29,7 +29,7 @@ export default function HomeView() {
       },
       { threshold: 0.15 },
     )
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+    document.querySelectorAll('.reveal, .reveal-item').forEach((el) => observer.observe(el))
     return () => observer.disconnect()
   }, [])
 
@@ -39,19 +39,33 @@ export default function HomeView() {
       <section className="relative flex min-h-screen items-center justify-center py-20">
         <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-6 lg:grid-cols-2">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <p className="text-xs font-semibold tracking-[0.35em] text-violet-300/80 uppercase sm:text-sm">
+            <p
+              className="hero-in text-xs font-semibold tracking-[0.35em] text-violet-300/80 uppercase sm:text-sm"
+              style={{ animationDelay: '0ms' }}
+            >
               {profile.role}
             </p>
 
-            <h1 className="mt-7 font-display text-5xl font-bold tracking-tight sm:text-6xl xl:text-7xl">
+            <h1
+              className="hero-in mt-7 font-display text-5xl font-bold tracking-tight sm:text-6xl xl:text-7xl"
+              style={{ animationDelay: '90ms' }}
+            >
               <span className="bg-gradient-to-br from-white via-violet-200 to-indigo-400 bg-clip-text text-transparent">
                 {profile.name}
               </span>
             </h1>
 
-            <p className="mt-6 max-w-xl text-base text-zinc-400 sm:text-lg">{profile.tagline}</p>
+            <p
+              className="hero-in mt-6 max-w-xl text-base text-zinc-400 sm:text-lg"
+              style={{ animationDelay: '180ms' }}
+            >
+              {profile.tagline}
+            </p>
 
-            <div className="mt-9 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <div
+              className="hero-in mt-9 flex flex-wrap justify-center gap-3 lg:justify-start"
+              style={{ animationDelay: '270ms' }}
+            >
               {profile.socials.map((social) => (
                 <a
                   key={social.href}
@@ -65,7 +79,10 @@ export default function HomeView() {
               ))}
             </div>
 
-            <div className="mt-12 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <div
+              className="hero-in mt-12 flex flex-wrap justify-center gap-3 lg:justify-start"
+              style={{ animationDelay: '360ms' }}
+            >
               {stats.map((stat) => (
                 <span
                   key={stat.label}
@@ -77,10 +94,18 @@ export default function HomeView() {
               ))}
             </div>
 
-            <p className="mt-16 text-xs tracking-[0.3em] text-zinc-600 uppercase">Scroll</p>
+            <p
+              className="hero-in mt-16 text-xs tracking-[0.3em] text-zinc-600 uppercase"
+              style={{ animationDelay: '520ms' }}
+            >
+              <span className="scroll-cue inline-block">Scroll</span>
+            </p>
           </div>
 
-          <div className="h-[400px] w-full max-w-md justify-self-center sm:h-[480px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-1/2 lg:max-w-none">
+          <div
+            className="hero-in h-[400px] w-full max-w-md justify-self-center sm:h-[480px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-1/2 lg:max-w-none"
+            style={{ animationDelay: '300ms' }}
+          >
             <LanyardStage frontImage={asset('/card-front.jpg')} size={0.5} breeze={0} />
           </div>
         </div>
@@ -92,8 +117,8 @@ export default function HomeView() {
           <div className="reveal">
             <SectionHeading index="01" label="Projects" title="Things I've built" />
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-              {projects.map((project) => (
-                <ProjectCard key={project.slug} project={project} />
+              {projects.map((project, index) => (
+                <ProjectCard key={project.slug} project={project} index={index} />
               ))}
             </div>
           </div>

@@ -130,13 +130,78 @@ body {
   }
 }
 
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes cue {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(4px);
+  }
+}
+
+/* Hero entrance: above the fold, so it runs on load instead of waiting for an observer. */
+.hero-in {
+  animation: fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 /* Only hide content when JS is running — otherwise the page would be blank. */
-.js .reveal {
+.js .reveal,
+.js .reveal-item {
   opacity: 0;
 }
 
 .reveal.is-visible {
   animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Grid items: same reveal, offset per item with an inline animation-delay. */
+.reveal-item.is-visible {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.reveal.is-visible .section-rule {
+  animation: grow-x 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+  transform-origin: left;
+}
+
+.scroll-cue {
+  animation: cue 2.8s ease-in-out infinite;
+}
+
+/* Cursor-follow glow. --mx/--my are written by the pointer handler on the card. */
+.spotlight {
+  position: relative;
+}
+
+.spotlight::before {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  content: '';
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(
+    190px circle at var(--mx, 50%) var(--my, 0%),
+    var(--glow, rgba(255, 255, 255, 0.1)),
+    transparent 62%
+  );
+}
+
+.spotlight:hover::before {
+  opacity: 0.85;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -148,9 +213,14 @@ body {
     transition-duration: 0.001ms !important;
   }
 
-  .js .reveal {
+  .js .reveal,
+  .js .reveal-item {
     opacity: 1;
     transform: none;
+  }
+
+  .spotlight::before {
+    display: none;
   }
 }
 
