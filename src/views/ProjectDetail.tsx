@@ -50,7 +50,7 @@ export default function ProjectDetail() {
         }}
       >
         {project.image ? (
-          <img src={asset(project.image)} alt={project.title} className="size-full object-cover" />
+          <img src={asset(project.image)} alt={project.title} className="size-full object-contain" />
         ) : (
           <span className="absolute bottom-4 left-6 font-display text-8xl font-bold text-white/15 select-none">
             {project.title[0]}

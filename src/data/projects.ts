@@ -68,6 +68,13 @@ export const projects: Project[] = [
     links: [{ label: 'Source', href: 'https://github.com/Saintzycode/SupplyTrack' }],
     featured: true,
     accent: '#f59e0b',
+    image: '/projects/supplytrack-dashboard.jpg',
+    gallery: [
+      '/projects/supplytrack-inventory.jpg',
+      '/projects/supplytrack-reports.jpg',
+      '/projects/supplytrack-categories.jpg',
+      '/projects/supplytrack-login.jpg',
+    ],
   },
   {
     slug: 'budgetko',
