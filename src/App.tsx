@@ -1,6 +1,6 @@
 import { Link, Route, Routes } from 'react-router-dom'
 import { profile } from './data/profile'
-import { BackgroundPixelStars } from './components/ui/background-pixel-stars'
+import { DarkGradientBg } from './components/ui/elegant-dark-pattern'
 import ScrollToTop from './components/ScrollToTop'
 import HomeView from './views/HomeView'
 import ProjectDetail from './views/ProjectDetail'
@@ -24,9 +24,9 @@ function GitHubMark({ className }: { className?: string }) {
 export default function App() {
   return (
     <div className="relative overflow-x-hidden">
-      {/* pixel starfield — the whole page sits on top of it */}
+      {/* static dark gradient — no canvas, no animation loop */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10">
-        <BackgroundPixelStars />
+        <DarkGradientBg />
       </div>
 
       <ScrollToTop />
