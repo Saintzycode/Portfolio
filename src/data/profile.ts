@@ -17,7 +17,7 @@ export interface SiteProfile {
 const email = 'you@example.com'
 
 export const profile: SiteProfile = {
-  name: 'John Kenneth',
+  name: 'John Kenneth D. Reside',
   role: 'Developer & Network Engineer',
   tagline: 'I build web apps and automate the networks that run them.',
   location: 'Philippines',
