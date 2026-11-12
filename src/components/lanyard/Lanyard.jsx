@@ -1243,10 +1243,15 @@ const Lanyard = ({
     canvas.addEventListener('lostpointercapture', onPointerUp);
     canvas.addEventListener('touchstart', onTouchStart, { passive: false });
 
+    // Phones are fill-rate bound: 2x of a 400px-tall card costs 4x the pixels.
+    // 1.5x keeps the edges clean for less than half that cost.
+    const maxPixelRatio = () =>
+      window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 640 ? 1.5 : 2;
+
     const resize = () => {
       view.width = Math.max(1, container.clientWidth);
       view.height = Math.max(1, container.clientHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxPixelRatio()));
       renderer.setSize(view.width, view.height, false);
       apply();
       render();

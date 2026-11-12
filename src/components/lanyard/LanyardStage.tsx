@@ -9,13 +9,25 @@ export default function LanyardStage(props: LanyardProps) {
 
   useEffect(() => {
     let live = true
-    import('./Lanyard')
-      .then((module) => {
-        if (live) setLanyard(() => module.default)
-      })
-      .catch(() => {})
+    const load = () => {
+      import('./Lanyard')
+        .then((module) => {
+          if (live) setLanyard(() => module.default)
+        })
+        .catch(() => {})
+    }
+    // ~574 KB of three.js: let the hero paint and its entrance finish first.
+    if (typeof requestIdleCallback === 'function') {
+      const id = requestIdleCallback(load, { timeout: 1500 })
+      return () => {
+        live = false
+        cancelIdleCallback(id)
+      }
+    }
+    const id = setTimeout(load, 400)
     return () => {
       live = false
+      clearTimeout(id)
     }
   }, [])
 
