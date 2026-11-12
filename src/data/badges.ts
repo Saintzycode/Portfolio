@@ -13,6 +13,14 @@ export interface Badge {
 
 export const badges: Badge[] = [
   {
+    id: 'appkademiya-netops',
+    title: 'NetOps Certified Engineer (NTO-101)',
+    issuer: 'Appkademiya',
+    issued: '2026',
+    image: '/badges/appkademiya-netops-nto101.jpg',
+    href: 'https://appkademiya.online/verify/CERT-NETOPS-CERTIFIED-ENGINEER-NTO101-20261105-8C26660FA7D3',
+  },
+  {
     id: 'network-technician',
     title: 'Network Technician Career Path',
     issuer: 'Cisco Networking Academy',
