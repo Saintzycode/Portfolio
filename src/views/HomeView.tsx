@@ -7,7 +7,7 @@ import SectionHeading from '../components/SectionHeading'
 import BadgesSection from '../components/BadgesSection'
 import ContributionsSection from '../components/ContributionsSection'
 import ProjectCard from '../components/ProjectCard'
-import LanyardStage from '../components/lanyard/LanyardStage'
+import ProfileCard from '../components/ProfileCard'
 import { asset } from '../lib/asset'
 
 const stats = [
@@ -15,6 +15,8 @@ const stats = [
   { value: badges.length, label: 'certifications' },
   { value: contributions.totalContributions, label: 'contributions this year' },
 ]
+
+const contactHref = profile.socials.find((social) => social.label === 'Email')?.href ?? `mailto:${profile.email}`
 
 export default function HomeView() {
   useEffect(() => {
@@ -72,7 +74,7 @@ export default function HomeView() {
                   href={social.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="cursor-pointer rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-zinc-200 backdrop-blur transition hover:border-violet-400/50 hover:bg-white/10 hover:shadow-[0_0_34px_-8px_rgba(168,85,247,0.7)]"
+                  className="cursor-pointer rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm text-zinc-200 transition hover:border-violet-400/50 hover:bg-white/10 hover:shadow-[0_0_34px_-8px_rgba(168,85,247,0.7)]"
                 >
                   {social.label}
                 </a>
@@ -86,7 +88,7 @@ export default function HomeView() {
               {stats.map((stat) => (
                 <span
                   key={stat.label}
-                  className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-400 backdrop-blur"
+                  className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-400"
                 >
                   <span className="font-display font-semibold text-white">{stat.value}</span>{' '}
                   {stat.label}
@@ -103,10 +105,21 @@ export default function HomeView() {
           </div>
 
           <div
-            className="hero-in h-[400px] w-full max-w-md justify-self-center sm:h-[480px] lg:absolute lg:inset-y-0 lg:right-0 lg:h-auto lg:w-1/2 lg:max-w-none"
+            className="hero-in flex justify-center lg:justify-end lg:pr-6"
             style={{ animationDelay: '300ms' }}
           >
-            <LanyardStage frontImage={asset('/card-front.jpg')} size={0.5} breeze={0} />
+            <ProfileCard
+              name={profile.name}
+              title={profile.role}
+              handle="Saintzycode"
+              status={profile.location}
+              statusColor="#a78bfa"
+              contactText="Contact"
+              avatarUrl={asset('/card-front.jpg')}
+              onContactClick={() => {
+                window.location.href = contactHref
+              }}
+            />
           </div>
         </div>
       </section>

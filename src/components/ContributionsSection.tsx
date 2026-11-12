@@ -45,7 +45,7 @@ export default function ContributionsSection() {
   })
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur transition hover:border-violet-400/30 hover:shadow-[0_24px_60px_-28px_rgba(168,85,247,0.5)]">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition hover:border-violet-400/30 hover:shadow-[0_24px_60px_-28px_rgba(168,85,247,0.5)]">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <p className="font-display text-4xl font-bold text-white">{total.toLocaleString()}</p>
         <p className="text-sm text-zinc-400">

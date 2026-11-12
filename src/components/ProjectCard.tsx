@@ -11,7 +11,7 @@ export default function ProjectCard({ project, index = 0 }: { project: Project; 
         event.currentTarget.style.setProperty('--mx', `${event.clientX - rect.left}px`)
         event.currentTarget.style.setProperty('--my', `${event.clientY - rect.top}px`)
       }}
-      className="reveal-item spotlight group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur transition duration-300 hover:-translate-y-1 hover:border-violet-400/40 hover:shadow-[0_24px_60px_-24px_rgba(168,85,247,0.55)]"
+      className="reveal-item spotlight group relative flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] transition duration-300 hover:-translate-y-1 hover:border-violet-400/40 hover:shadow-[0_24px_60px_-24px_rgba(168,85,247,0.55)]"
       style={
         {
           animationDelay: `${index * 90}ms`,
@@ -41,7 +41,7 @@ export default function ProjectCard({ project, index = 0 }: { project: Project; 
           </span>
         )}
         {project.featured && (
-          <span className="absolute top-3 right-3 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-xs font-medium text-white backdrop-blur">
+          <span className="absolute top-3 right-3 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-xs font-medium text-white">
             Featured
           </span>
         )}
